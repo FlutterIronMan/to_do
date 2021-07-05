@@ -27,8 +27,7 @@ class MainScreen extends StatelessWidget {
             ),
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor:
-                MaterialStateProperty.all<Color>(Colors.green),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
               ),
               onPressed: () {
                 Navigator.pushReplacementNamed(context, '/todo');
