@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -11,18 +10,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late String _userToDo;
-
-  @override
-  void initState() {
-    super.initState();
-
-    initFirebase();
-  }
-
-  void initFirebase() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-  }
 
   void _menuOpen() {
     Navigator.of(context).push(
@@ -147,7 +134,13 @@ class _HomeState extends State<Home> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('items').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) return Text('Немає записів');
+          if (!snapshot.hasData)
+            return Center(
+              child: Text(
+                'Немає записів',
+                style: TextStyle(fontSize: 25),
+              ),
+            );
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (BuildContext context, int index) {
